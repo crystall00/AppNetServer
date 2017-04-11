@@ -114,6 +114,7 @@
     <Compile Include="Auftrag.cs">
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
+    <Compile Include="AuftragController.cs" />
     <Compile Include="Auftraggeber.cs">
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
