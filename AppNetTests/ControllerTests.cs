@@ -14,7 +14,6 @@ namespace AppNetTests
         [TestMethod]
         public void Get()
         {
-            DemoController controller = new DemoController();
         }
     }
 }
