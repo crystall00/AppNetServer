@@ -17,6 +17,13 @@ namespace AppNetServer
             return service.getAllOrders();
         }
 
+        // GET: api/demo
+        public Auftrag Get(int i)
+        {
+            Auftrag auftrag = new Auftrag();
+            return auftrag;
+        }
+
         // POST: api/demo
         public HttpResponseMessage Post([FromBody]Auftrag auftrag)
         {
