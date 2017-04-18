@@ -142,6 +142,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegistrationController.cs" />
     <Compile Include="Services\AppNetServices.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
