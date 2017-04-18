@@ -8,6 +8,7 @@ using System.Web.Http;
 
 namespace AppNetServer
 {
+    [RoutePrefix("api/auftrag")]
     class AuftragController : ApiController
     {
         private AppNetServices service = new AppNetServices();
