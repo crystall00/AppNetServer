@@ -8,16 +8,16 @@ using System.Web.Http;
 
 namespace AppNetServer
 {
-    class AuftragController : ApiController
+    public class AuftragController : ApiController
     {
         private AppNetServices service = new AppNetServices();
-        // GET: api/auftrag
+        // GET: api/demo
         public ArrayList Get()
         {
             return service.getAllOrders();
         }
-
-        // POST: api/auftrag
+    
+        // POST: api/demo
         public HttpResponseMessage Post([FromBody]Auftrag auftrag)
         {
             service.save(auftrag);
@@ -25,5 +25,5 @@ namespace AppNetServer
             //response.Headers.Location = new Uri(Request.RequestUri, String.Format("demo"));
             return response;
         }
-    }
+    } 
 }
