@@ -11,20 +11,13 @@ namespace AppNetServer
     class AuftragController : ApiController
     {
         private AppNetServices service = new AppNetServices();
-        // GET: api/demo
+        // GET: api/auftrag
         public ArrayList Get()
         {
             return service.getAllOrders();
         }
 
-        // GET: api/demo
-        public Auftrag Get(int i)
-        {
-            Auftrag auftrag = new Auftrag();
-            return auftrag;
-        }
-
-        // POST: api/demo
+        // POST: api/auftrag
         public HttpResponseMessage Post([FromBody]Auftrag auftrag)
         {
             service.save(auftrag);
