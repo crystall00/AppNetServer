@@ -121,7 +121,6 @@
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
     <Compile Include="AuftragController.cs" />
-    <Compile Include="DemoController.cs" />
     <Compile Include="Models.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

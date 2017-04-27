@@ -13,7 +13,7 @@ namespace AppNetServer.Services
         private static string connectionString = "Data Source=152.96.56.70,40001;Initial Catalog=AppNet;Persist Security Info=True;User ID=sa;Password=HSR-00776688";
         SqlConnection conn = new SqlConnection(connectionString);
 
-        public void save (Auftrag auftrag)
+        public void saveOrder (Auftrag auftrag)
         {
             conn.Open();
             SqlCommand cmd = new SqlCommand("INSERT INTO dbo.Auftrag (erstelldatum,titel,beschreibung,ort) VALUES ('" + auftrag.erstelldatum + "','" + auftrag.titel + "','" + auftrag.beschreibung + "','" + auftrag.ort + "') ",conn);
