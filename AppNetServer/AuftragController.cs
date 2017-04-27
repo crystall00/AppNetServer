@@ -20,7 +20,7 @@ namespace AppNetServer
         // GET: api/auftrag/sortierParameter&published=false&userId
         public ArrayList Get(int sortParameter, bool published, int userId)
         {
-            return service.getYourOrders(sortParameter, published);
+            return service.getYourOrders(sortParameter, published, userId);
         }
 
         // POST: api/auftrag

@@ -14,6 +14,12 @@ namespace AppNetServer
     
     public partial class Auftraggeber
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Auftraggeber()
+        {
+            this.Auftrag = new HashSet<Auftrag>();
+        }
+    
         public int userid { get; set; }
         public string username { get; set; }
         public string passwort { get; set; }
@@ -23,5 +29,8 @@ namespace AppNetServer
         public string adresse { get; set; }
         public string profilbild { get; set; }
         public string telefonnummer { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Auftrag> Auftrag { get; set; }
     }
 }
