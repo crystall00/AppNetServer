@@ -21,26 +21,38 @@ namespace AppNetServer.Services
             conn.Close();
         }
 
-        public ArrayList getAllOrders()
+        public ArrayList getAllOrders(int sortParameter, bool published)
         {
             ArrayList allOrders = new ArrayList();
-            conn.Open();
             SqlCommand cmd = new SqlCommand("SELECT * FROM Auftrag;", conn);
-            SqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    Auftrag auftrag = new Auftrag();
-                    auftrag.auftragsNummer = reader.GetInt32(0);
-                    auftrag.erstelldatum = reader.GetDateTime(1);
-                    auftrag.titel = reader.GetString(2);
-                    auftrag.beschreibung = reader.GetString(3);
-                    auftrag.ort = reader.GetString(4);
-                    allOrders.Add(auftrag);
-                }
-           
-            conn.Close();
-
+            getAuftraegeFromDB(cmd, ref allOrders);
             return allOrders;
         }
+
+        public ArrayList getYourOrders(int sortParameter, bool published, int userId)
+        {
+            ArrayList yourOrders = new ArrayList();
+            SqlCommand cmd = new SqlCommand("SELECT * FROM Auftrag where auftragsNummer = " + userId + ";", conn);
+            getAuftraegeFromDB(cmd, ref yourOrders);
+            return yourOrders;
+        }
+
+        public void getAuftraegeFromDB(SqlCommand cmd, ref ArrayList listToSaveData)
+        {
+            conn.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                Auftrag auftrag = new Auftrag();
+                auftrag.auftragsNummer = reader.GetInt32(0);
+                auftrag.erstelldatum = reader.GetDateTime(1);
+                auftrag.titel = reader.GetString(2);
+                auftrag.beschreibung = reader.GetString(3);
+                auftrag.ort = reader.GetString(4);
+                listToSaveData.Add(auftrag);
+            }
+            conn.Close();
+        }
+    
     }
 }

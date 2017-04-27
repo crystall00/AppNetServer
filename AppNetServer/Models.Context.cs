@@ -29,5 +29,6 @@ namespace AppNetServer
         public virtual DbSet<Auftraggeber> Auftraggeber { get; set; }
         public virtual DbSet<Auftragnehmer> Auftragnehmer { get; set; }
         public virtual DbSet<Offerte> Offerte { get; set; }
+        public virtual DbSet<Bewertung> Bewertung { get; set; }
     }
 }

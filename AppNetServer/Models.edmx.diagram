@@ -5,10 +5,12 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="f679d1623ce74adfb505e7fa129bda36" Name="Diagram1">
-        <EntityTypeShape EntityType="AppNetModel.Auftrag" Width="1.5" PointX="1.125" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AppNetModel.Auftrag" Width="2.125" PointX="8.875" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="AppNetModel.Auftraggeber" Width="1.5" PointX="2.875" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="AppNetModel.Auftragnehmer" Width="1.5" PointX="4.625" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="AppNetModel.Offerte" Width="1.5" PointX="6.375" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AppNetModel.Offerte" Width="1.75" PointX="6.375" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AppNetModel.Bewertung" Width="1.5" PointX="1.125" PointY="1" />
+        <AssociationConnector Association="AppNetModel.FK_Auftrag_ToAuftraggeber" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

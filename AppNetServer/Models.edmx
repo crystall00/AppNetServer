@@ -4,16 +4,18 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="AppNetModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="AppNetModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Auftrag">
           <Key>
             <PropertyRef Name="auftragsNummer" />
           </Key>
-          <Property Name="auftragsNummer" Type="int" Nullable="false" />
+          <Property Name="auftragsNummer" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="erstelldatum" Type="datetime" />
           <Property Name="titel" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="beschreibung" Type="nvarchar" MaxLength="50" />
           <Property Name="ort" Type="nvarchar" MaxLength="50" />
+          <Property Name="ausschreibungsende" Type="datetime" />
+          <Property Name="userid" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Auftraggeber">
           <Key>
@@ -42,19 +44,18 @@
           <Property Name="logo" Type="nvarchar" MaxLength="50" />
           <Property Name="telefonnummer" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <!--Während der Generierung sind Fehler aufgetreten:
-Warnung 6013: Für Tabelle/Sicht 'AppNet.dbo.Ausschreibung' ist kein Primärschlüssel definiert, und es konnte kein gültiger Primärschlüssel abgeleitet werden. Diese Tabelle/Sicht wurde ausgeschlossen. Wenn Sie die Entität verwenden möchten, müssen Sie das Schema überprüfen, die richtigen Schlüssel hinzufügen und die Auskommentierung aufheben.
-        <EntityType Name="Ausschreibung">
-          <Property Name="ausschreibungsdatum" Type="timestamp" StoreGeneratedPattern="Computed" />
-          <Property Name="dauer" Type="int" />
-          <Property Name="anzahlOfferten" Type="int" />
-        </EntityType>-->
-        <!--Während der Generierung sind Fehler aufgetreten:
-Warnung 6013: Für Tabelle/Sicht 'AppNet.dbo.Bewertung' ist kein Primärschlüssel definiert, und es konnte kein gültiger Primärschlüssel abgeleitet werden. Diese Tabelle/Sicht wurde ausgeschlossen. Wenn Sie die Entität verwenden möchten, müssen Sie das Schema überprüfen, die richtigen Schlüssel hinzufügen und die Auskommentierung aufheben.
         <EntityType Name="Bewertung">
-          <Property Name="wert" Type="int" />
+          <Key>
+            <PropertyRef Name="auftragnehmerId" />
+            <PropertyRef Name="auftraggeberId" />
+            <PropertyRef Name="auftragsId" />
+          </Key>
+          <Property Name="wert" Type="int" Nullable="false" />
           <Property Name="kommentar" Type="nvarchar" MaxLength="50" />
-        </EntityType>-->
+          <Property Name="auftragnehmerId" Type="int" Nullable="false" />
+          <Property Name="auftraggeberId" Type="int" Nullable="false" />
+          <Property Name="auftragsId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Offerte">
           <Key>
             <PropertyRef Name="offertenNummer" />
@@ -64,14 +65,30 @@ Warnung 6013: Für Tabelle/Sicht 'AppNet.dbo.Bewertung' ist kein Primärschlüss
           <Property Name="erstelldatum" Type="timestamp" StoreGeneratedPattern="Computed" />
           <Property Name="status" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <Association Name="FK_Auftrag_ToAuftraggeber">
+          <End Role="Auftraggeber" Type="Self.Auftraggeber" Multiplicity="1" />
+          <End Role="Auftrag" Type="Self.Auftrag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auftraggeber">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="Auftrag">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="AppNetModelStoreContainer">
           <EntitySet Name="Auftrag" EntityType="Self.Auftrag" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Auftraggeber" EntityType="Self.Auftraggeber" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Auftragnehmer" EntityType="Self.Auftragnehmer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bewertung" EntityType="Self.Bewertung" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Offerte" EntityType="Self.Offerte" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Auftrag_ToAuftraggeber" Association="Self.FK_Auftrag_ToAuftraggeber">
+            <End Role="Auftraggeber" EntitySet="Auftraggeber" />
+            <End Role="Auftrag" EntitySet="Auftrag" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AppNetModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -84,6 +101,9 @@ Warnung 6013: Für Tabelle/Sicht 'AppNet.dbo.Bewertung' ist kein Primärschlüss
           <Property Name="titel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="beschreibung" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ort" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ausschreibungsende" Type="DateTime" Precision="3" />
+          <Property Name="userid" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Auftraggeber" Relationship="AppNetModel.FK_Auftrag_ToAuftraggeber" FromRole="Auftrag" ToRole="Auftraggeber" />
         </EntityType>
         <EntityType Name="Auftraggeber">
           <Key>
@@ -98,6 +118,7 @@ Warnung 6013: Für Tabelle/Sicht 'AppNet.dbo.Bewertung' ist kein Primärschlüss
           <Property Name="adresse" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="profilbild" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="telefonnummer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Auftrag" Relationship="AppNetModel.FK_Auftrag_ToAuftraggeber" FromRole="Auftraggeber" ToRole="Auftrag" />
         </EntityType>
         <EntityType Name="Auftragnehmer">
           <Key>
@@ -126,7 +147,36 @@ Warnung 6013: Für Tabelle/Sicht 'AppNet.dbo.Bewertung' ist kein Primärschlüss
           <EntitySet Name="Auftraggeber" EntityType="Self.Auftraggeber" />
           <EntitySet Name="Auftragnehmer" EntityType="Self.Auftragnehmer" />
           <EntitySet Name="Offerte" EntityType="Self.Offerte" />
+          <EntitySet Name="Bewertung" EntityType="AppNetModel.Bewertung" />
+          <AssociationSet Name="FK_Auftrag_ToAuftraggeber" Association="AppNetModel.FK_Auftrag_ToAuftraggeber">
+            <End Role="Auftraggeber" EntitySet="Auftraggeber" />
+            <End Role="Auftrag" EntitySet="Auftrag" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Bewertung">
+          <Key>
+            <PropertyRef Name="auftragnehmerId" />
+            <PropertyRef Name="auftraggeberId" />
+            <PropertyRef Name="auftragsId" />
+          </Key>
+          <Property Name="wert" Type="Int32" Nullable="false" />
+          <Property Name="kommentar" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="auftragnehmerId" Type="Int32" Nullable="false" />
+          <Property Name="auftraggeberId" Type="Int32" Nullable="false" />
+          <Property Name="auftragsId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Auftrag_ToAuftraggeber">
+          <End Type="AppNetModel.Auftraggeber" Role="Auftraggeber" Multiplicity="1" />
+          <End Type="AppNetModel.Auftrag" Role="Auftrag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auftraggeber">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="Auftrag">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -136,6 +186,8 @@ Warnung 6013: Für Tabelle/Sicht 'AppNet.dbo.Bewertung' ist kein Primärschlüss
           <EntitySetMapping Name="Auftrag">
             <EntityTypeMapping TypeName="AppNetModel.Auftrag">
               <MappingFragment StoreEntitySet="Auftrag">
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="ausschreibungsende" ColumnName="ausschreibungsende" />
                 <ScalarProperty Name="auftragsNummer" ColumnName="auftragsNummer" />
                 <ScalarProperty Name="erstelldatum" ColumnName="erstelldatum" />
                 <ScalarProperty Name="titel" ColumnName="titel" />
@@ -180,6 +232,17 @@ Warnung 6013: Für Tabelle/Sicht 'AppNet.dbo.Bewertung' ist kein Primärschlüss
                 <ScalarProperty Name="kostenvoranschlag" ColumnName="kostenvoranschlag" />
                 <ScalarProperty Name="erstelldatum" ColumnName="erstelldatum" />
                 <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bewertung">
+            <EntityTypeMapping TypeName="AppNetModel.Bewertung">
+              <MappingFragment StoreEntitySet="Bewertung">
+                <ScalarProperty Name="auftragsId" ColumnName="auftragsId" />
+                <ScalarProperty Name="auftraggeberId" ColumnName="auftraggeberId" />
+                <ScalarProperty Name="auftragnehmerId" ColumnName="auftragnehmerId" />
+                <ScalarProperty Name="kommentar" ColumnName="kommentar" />
+                <ScalarProperty Name="wert" ColumnName="wert" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

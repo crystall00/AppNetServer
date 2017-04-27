@@ -17,10 +17,24 @@ namespace AppNetServer
            
         }
 
-        // POST: api/registration
-        public void Post([FromBody]Auftrag auftrag)
+        // POST: api/registration/id
+        public void Post(int id, [FromBody]Object user)
         {
-            
+            if(id == 0)
+            {
+                Auftraggeber auftraggeber = (Auftraggeber)user;
+
+            }
+            else if (id == 1)
+            {
+                Auftragnehmer auftragnehmer = (Auftragnehmer)user;
+            }
+        }
+
+        //POST: api/registration
+        public void Post([FromBody]Auftragnehmer auftragnehmer)
+        {
+
         }
     }
 }

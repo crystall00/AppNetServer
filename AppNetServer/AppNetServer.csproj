@@ -121,6 +121,9 @@
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
     <Compile Include="AuftragController.cs" />
+    <Compile Include="Bewertung.cs">
+      <DependentUpon>Models.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

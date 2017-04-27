@@ -12,16 +12,12 @@ namespace AppNetServer
     using System;
     using System.Collections.Generic;
     
-    public partial class Auftrag
+    public partial class Bewertung
     {
-        public int auftragsNummer { get; set; }
-        public Nullable<System.DateTime> erstelldatum { get; set; }
-        public string titel { get; set; }
-        public string beschreibung { get; set; }
-        public string ort { get; set; }
-        public Nullable<System.DateTime> ausschreibungsende { get; set; }
-        public int userid { get; set; }
-    
-        public virtual Auftraggeber Auftraggeber { get; set; }
+        public int wert { get; set; }
+        public string kommentar { get; set; }
+        public int auftragnehmerId { get; set; }
+        public int auftraggeberId { get; set; }
+        public int auftragsId { get; set; }
     }
 }
