@@ -11,7 +11,7 @@ namespace AppNetServer
     public class ProfilController : ApiController
     {
         private AppNetServices service = new AppNetServices();
-        // GET: api/auftrag/sortierParameter
+        // GET: api/profil/
         public ArrayList Get(int sortParameter, bool published)
         {
             return service.getAllOrders(sortParameter, published);
