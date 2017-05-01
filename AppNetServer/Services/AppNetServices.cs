@@ -17,7 +17,7 @@ namespace AppNetServer.Services
         {
             conn.Open();
             try { 
-                SqlCommand cmd = new SqlCommand("INSERT INTO dbo.Auftrag (erstelldatum,titel,beschreibung,ort) VALUES ('" + auftrag.erstelldatum + "','" + auftrag.titel + "','" + auftrag.beschreibung + "','" + auftrag.ort + "','" + userid + "') ",conn);
+                SqlCommand cmd = new SqlCommand("INSERT INTO dbo.Auftrag (erstelldatum,titel,beschreibung,ort,userid) VALUES ('" + auftrag.erstelldatum + "','" + auftrag.titel + "','" + auftrag.beschreibung + "','" + auftrag.ort + "','" + userid + "') ",conn);
                 cmd.ExecuteNonQuery();
                 conn.Close();
             }
