@@ -21,6 +21,22 @@ namespace AppNetServer.Services
             conn.Close();
         }
 
+        public bool deleteAuftrag(int auftragsNummer)
+        {
+            conn.Open();
+            SqlCommand cmd = new SqlCommand("DELETE FROM dbo.Auftrag where auftragsNummer = "+auftragsNummer.ToString());
+            try
+            { 
+                cmd.ExecuteNonQuery();
+                return true;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
+
         public ArrayList getAllOrders(int sortParameter, bool published)
         {
             ArrayList allOrders = new ArrayList();
@@ -53,6 +69,8 @@ namespace AppNetServer.Services
             }
             conn.Close();
         }
+
+
     
     }
 }

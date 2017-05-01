@@ -31,5 +31,20 @@ namespace AppNetServer
             //response.Headers.Location = new Uri(Request.RequestUri, String.Format("demo"));
             return response;
         }
+
+        public HttpResponseMessage Delete(int auftragsNummer)
+        {
+            bool recordExisted = service.deleteAuftrag(auftragsNummer);
+            if (recordExisted){
+                HttpResponseMessage response = Request.CreateResponse(System.Net.HttpStatusCode.NoContent);
+                return response;
+
+            }
+            else
+            {
+                HttpResponseMessage response = Request.CreateResponse(System.Net.HttpStatusCode.NotFound);
+                return response;
+            }
+        }
     } 
 }
