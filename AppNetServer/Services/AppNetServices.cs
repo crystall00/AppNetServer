@@ -13,12 +13,33 @@ namespace AppNetServer.Services
         private static string connectionString = "Data Source=152.96.56.70,40001;Initial Catalog=AppNet;Persist Security Info=True;User ID=sa;Password=HSR-00776688";
         SqlConnection conn = new SqlConnection(connectionString);
 
-        public void saveOrder (Auftrag auftrag)
+        public void addAuftrag (Auftrag auftrag)
         {
             conn.Open();
             SqlCommand cmd = new SqlCommand("INSERT INTO dbo.Auftrag (erstelldatum,titel,beschreibung,ort) VALUES ('" + auftrag.erstelldatum + "','" + auftrag.titel + "','" + auftrag.beschreibung + "','" + auftrag.ort + "') ",conn);
             cmd.ExecuteNonQuery();
             conn.Close();
+        }
+
+        public bool updateAuftrag(int auftragsNummer, Auftrag auftrag)
+        {
+            SqlCommand cmd = new SqlCommand("SELECT * FROM Auftrag where auftragsNummer = " + auftragsNummer.ToString() + ";", conn);
+            conn.Open();
+            var mssqlReader = cmd.ExecuteReader();
+            if(mssqlReader.Read())
+            {
+                mssqlReader.Close();
+                cmd = new SqlCommand("UPDATE dbo.Auftrag SET erstelldatum '" + auftrag.erstelldatum + "',titel = '" + auftrag.titel + "',beschreibung = '" + auftrag.beschreibung + "', ort = '" + auftrag.ort + "'", conn);
+                cmd.ExecuteNonQuery();
+                conn.Close();
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("No entry found");
+                conn.Close();
+                return false;
+            }
         }
 
         public bool deleteAuftrag(int auftragsNummer)

@@ -26,12 +26,12 @@ namespace AppNetServer
         // POST: api/auftrag
         public HttpResponseMessage Post([FromBody]Auftrag auftrag)
         {
-            service.saveOrder(auftrag);
+            service.addAuftrag(auftrag);
             HttpResponseMessage response = Request.CreateResponse(System.Net.HttpStatusCode.Created);
             //response.Headers.Location = new Uri(Request.RequestUri, String.Format("demo"));
             return response;
         }
-
+        // DELETE: api/auftrag/5
         public HttpResponseMessage Delete(int auftragsNummer)
         {
             bool recordExisted = service.deleteAuftrag(auftragsNummer);
@@ -45,6 +45,22 @@ namespace AppNetServer
                 HttpResponseMessage response = Request.CreateResponse(System.Net.HttpStatusCode.NotFound);
                 return response;
             }
+        }
+
+        // PUT: api/auftrag/5
+        public HttpResponseMessage Put(int auftragsNummer, [FromBody]Auftrag auftrag)
+        {
+            bool recordExisted = service.updateAuftrag(auftragsNummer, auftrag);
+            HttpResponseMessage response;
+            if (recordExisted)
+            {
+                response = Request.CreateResponse(System.Net.HttpStatusCode.NoContent);
+            }
+            else
+            {
+                response = Request.CreateResponse(System.Net.HttpStatusCode.NotFound);
+            }
+            return response;
         }
     } 
 }
