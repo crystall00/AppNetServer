@@ -26,7 +26,7 @@ namespace AppNetServer
         // POST: api/auftrag
         public HttpResponseMessage Post([FromBody]Auftrag auftrag)
         {
-            service.saveOrder(auftrag);
+            service.addAuftrag(auftrag);
             HttpResponseMessage response = Request.CreateResponse(System.Net.HttpStatusCode.Created);
             //response.Headers.Location = new Uri(Request.RequestUri, String.Format("demo"));
             return response;
