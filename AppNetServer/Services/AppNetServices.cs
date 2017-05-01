@@ -23,18 +23,21 @@ namespace AppNetServer.Services
 
         public bool deleteAuftrag(int auftragsNummer)
         {
-            conn.Open();
-            SqlCommand cmd = new SqlCommand("DELETE FROM dbo.Auftrag where auftragsNummer = "+auftragsNummer.ToString());
             try
-            { 
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand("DELETE FROM dbo.Auftrag where auftragsNummer = " + auftragsNummer.ToString());
                 cmd.ExecuteNonQuery();
+                conn.Close();
                 return true;
             }
             catch(Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                conn.Close();
                 return false;
             }
+
         }
 
         public ArrayList getAllOrders(int sortParameter, bool published)
