@@ -26,7 +26,7 @@ namespace AppNetServer.Services
             try
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("DELETE FROM dbo.Auftrag where auftragsNummer = " + auftragsNummer.ToString());
+                SqlCommand cmd = new SqlCommand("DELETE FROM dbo.Auftrag where auftragsNummer = " + auftragsNummer.ToString(),conn);
                 cmd.ExecuteNonQuery();
                 conn.Close();
                 return true;
