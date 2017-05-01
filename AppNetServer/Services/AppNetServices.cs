@@ -16,9 +16,16 @@ namespace AppNetServer.Services
         public void addAuftrag (Auftrag auftrag)
         {
             conn.Open();
-            SqlCommand cmd = new SqlCommand("INSERT INTO dbo.Auftrag (erstelldatum,titel,beschreibung,ort) VALUES ('" + auftrag.erstelldatum + "','" + auftrag.titel + "','" + auftrag.beschreibung + "','" + auftrag.ort + "') ",conn);
-            cmd.ExecuteNonQuery();
-            conn.Close();
+            try { 
+                SqlCommand cmd = new SqlCommand("INSERT INTO dbo.Auftrag (erstelldatum,titel,beschreibung,ort) VALUES ('" + auftrag.erstelldatum + "','" + auftrag.titel + "','" + auftrag.beschreibung + "','" + auftrag.ort + "') ",conn);
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                conn.Close();
+            }
         }
 
         public bool updateAuftrag(int auftragsNummer, Auftrag auftrag)
