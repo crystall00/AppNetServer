@@ -16,6 +16,7 @@
           <Property Name="ort" Type="nvarchar" MaxLength="50" />
           <Property Name="ausschreibungsende" Type="datetime" />
           <Property Name="userid" Type="int" Nullable="false" />
+          <Property Name="ausgeschrieben" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Auftraggeber">
           <Key>
@@ -104,6 +105,7 @@
           <Property Name="ausschreibungsende" Type="DateTime" Precision="3" />
           <Property Name="userid" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Auftraggeber" Relationship="AppNetModel.FK_Auftrag_ToAuftraggeber" FromRole="Auftrag" ToRole="Auftraggeber" />
+          <Property Name="ausgeschrieben" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Auftraggeber">
           <Key>
@@ -186,6 +188,7 @@
           <EntitySetMapping Name="Auftrag">
             <EntityTypeMapping TypeName="AppNetModel.Auftrag">
               <MappingFragment StoreEntitySet="Auftrag">
+                <ScalarProperty Name="ausgeschrieben" ColumnName="ausgeschrieben" />
                 <ScalarProperty Name="userid" ColumnName="userid" />
                 <ScalarProperty Name="ausschreibungsende" ColumnName="ausschreibungsende" />
                 <ScalarProperty Name="auftragsNummer" ColumnName="auftragsNummer" />

@@ -21,6 +21,7 @@ namespace AppNetServer
         public string ort { get; set; }
         public Nullable<System.DateTime> ausschreibungsende { get; set; }
         public int userid { get; set; }
+        public bool ausgeschrieben { get; set; }
     
         public virtual Auftraggeber Auftraggeber { get; set; }
     }
