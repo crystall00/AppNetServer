@@ -29,10 +29,18 @@ namespace AppNetServer.Services
             if(mssqlReader.Read())
             {
                 mssqlReader.Close();
-                cmd = new SqlCommand("UPDATE dbo.Auftrag SET erstelldatum '" + auftrag.erstelldatum + "',titel = '" + auftrag.titel + "',beschreibung = '" + auftrag.beschreibung + "', ort = '" + auftrag.ort + "'", conn);
-                cmd.ExecuteNonQuery();
-                conn.Close();
-                return true;
+                try
+                {
+                    cmd = new SqlCommand("UPDATE dbo.Auftrag SET erstelldatum = '" + auftrag.erstelldatum + "',titel = '" + auftrag.titel + "',beschreibung = '" + auftrag.beschreibung + "', ort = '" + auftrag.ort + "'", conn);
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                    return true;
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                    return false;
+                }
             }
             else
             {
