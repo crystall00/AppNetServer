@@ -103,20 +103,28 @@ namespace AppNetServer.Services
         public void getAuftraegeFromDB(SqlCommand cmd, ref ArrayList listToSaveData)
         {
             conn.Open();
-            SqlDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                Auftrag auftrag = new Auftrag();
-                auftrag.auftragsNummer = reader.GetInt32(0);
-                auftrag.erstelldatum = reader.GetDateTime(1);
-                auftrag.titel = reader.GetString(2);
-                auftrag.beschreibung = reader.GetString(3);
-                auftrag.ort = reader.GetString(4);
-                auftrag.ausschreibungsende = reader.GetDateTime(5);
-                auftrag.ausgeschrieben = reader.GetBoolean(7);
-                listToSaveData.Add(auftrag);
+            try
+            { 
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Auftrag auftrag = new Auftrag();
+                    auftrag.auftragsNummer = reader.GetInt32(0);
+                    auftrag.erstelldatum = reader.GetDateTime(1);
+                    auftrag.titel = reader.GetString(2);
+                    auftrag.beschreibung = reader.GetString(3);
+                    auftrag.ort = reader.GetString(4);
+                    auftrag.ausschreibungsende = reader.GetDateTime(5);
+                    auftrag.ausgeschrieben = reader.GetBoolean(7);
+                    listToSaveData.Add(auftrag);
+                }
+                conn.Close();
             }
-            conn.Close();
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                conn.Close();
+            }
         }
 
 
