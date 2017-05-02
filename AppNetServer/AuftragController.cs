@@ -12,10 +12,10 @@ namespace AppNetServer
     {
         private AppNetServices service = new AppNetServices();
 
-        // GET: api/auftrag/sortierParameter&userId
-        public ArrayList Get(int sortParameter, int userId)
+        // GET: api/auftrag/sortBy&userId
+        public ArrayList Get(string sortBy, int userId)
         {
-            return service.getYourOrders(sortParameter, userId);
+            return service.getYourOrders(sortBy, userId);
         }
 
         // POST: api/auftrag

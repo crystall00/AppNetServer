@@ -45,7 +45,7 @@ namespace AppNetServer.Services
                 }
                 catch(Exception ex)
                 {
-                    Console.WriteLine(ex.ToString());
+                    Console.WriteLine(ex.Message);
                     return false;
                 }
             }
@@ -76,7 +76,7 @@ namespace AppNetServer.Services
 
         }
 
-        public ArrayList getAllOrders(int sortParameter, bool published)
+        public ArrayList getAllOrders(string sortBy, bool published)
         {
             ArrayList allOrders = new ArrayList();
             SqlCommand cmd = new SqlCommand("SELECT * FROM Auftrag;", conn);
@@ -84,18 +84,18 @@ namespace AppNetServer.Services
             return allOrders;
         }
 
-        public ArrayList getYourOrders(int sortParameter, int userId)
+        public ArrayList getYourOrders(string sortBy, int userId)
         {
             ArrayList yourOrders = new ArrayList();
-            SqlCommand cmd = new SqlCommand("SELECT * FROM Auftrag where userid = " + userId + ";", conn);
+            SqlCommand cmd = new SqlCommand("SELECT * FROM Auftrag where userid = " + userId + " ORDER BY " + sortBy + " ASC ;", conn);
             getAuftraegeFromDB(cmd, ref yourOrders);
             return yourOrders;
         }
 
-        public ArrayList getYourPublishedOrders(int sortParameter, int userId)
+        public ArrayList getYourPublishedOrders(string sortBy, int userId)
         {
             ArrayList yourOrders = new ArrayList();
-            SqlCommand cmd = new SqlCommand("SELECT * FROM Auftrag where userid = " + userId + " AND ausgeschrieben = 1 ;", conn);
+            SqlCommand cmd = new SqlCommand("SELECT * FROM Auftrag where userid = " + userId + " AND ausgeschrieben = 1 ORDER BY " + sortBy + " ASC ;", conn);
             getAuftraegeFromDB(cmd, ref yourOrders);
             return yourOrders;
         }

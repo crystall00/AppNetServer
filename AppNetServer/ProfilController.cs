@@ -12,9 +12,9 @@ namespace AppNetServer
     {
         private AppNetServices service = new AppNetServices();
         // GET: api/profil/
-        public ArrayList Get(int sortParameter, bool published)
+        public void Get(int sortParameter, bool published)
         {
-            return service.getAllOrders(sortParameter, published);
+            
         }
 
         // GET: api/auftrag/sortierParameter&published=false&userId
