@@ -38,7 +38,7 @@ namespace AppNetServer.Services
                 mssqlReader.Close();
                 try
                 {
-                    cmd = new SqlCommand("UPDATE dbo.Auftrag SET erstelldatum = '" + auftrag.erstelldatum + "',titel = '" + auftrag.titel + "',beschreibung = '" + auftrag.beschreibung + "', ort = '" + auftrag.ort + "' WHERE auftragsNummer = " + auftragsNummer + ";", conn);
+                    cmd = new SqlCommand("UPDATE dbo.Auftrag SET erstelldatum = '" + auftrag.erstelldatum + "',titel = '" + auftrag.titel + "',beschreibung = '" + auftrag.beschreibung + "', ort = '" + auftrag.ort + "', ausgeschrieben = '" + auftrag.ausgeschrieben + "', ausschreibungsende = '" + auftrag.ausschreibungsende + "' WHERE auftragsNummer = " + auftragsNummer + ";", conn);
                     cmd.ExecuteNonQuery();
                     conn.Close();
                     return true;
