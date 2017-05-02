@@ -11,11 +11,6 @@ namespace AppNetServer
     public class AuftragController : ApiController
     {
         private AppNetServices service = new AppNetServices();
-        // GET: api/auftrag/sortierParameter
-        public ArrayList Get(int sortParameter, bool published)
-        {
-            return service.getAllOrders(sortParameter, published);
-        }
 
         // GET: api/auftrag/sortierParameter&userId
         public ArrayList Get(int sortParameter, int userId)
