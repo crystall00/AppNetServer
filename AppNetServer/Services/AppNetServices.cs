@@ -84,10 +84,18 @@ namespace AppNetServer.Services
             return allOrders;
         }
 
-        public ArrayList getYourOrders(int sortParameter, bool published, int userId)
+        public ArrayList getYourOrders(int sortParameter, int userId)
         {
             ArrayList yourOrders = new ArrayList();
             SqlCommand cmd = new SqlCommand("SELECT * FROM Auftrag where userid = " + userId + ";", conn);
+            getAuftraegeFromDB(cmd, ref yourOrders);
+            return yourOrders;
+        }
+
+        public ArrayList getYourPublishedOrders(int sortParameter, int userId)
+        {
+            ArrayList yourOrders = new ArrayList();
+            SqlCommand cmd = new SqlCommand("SELECT * FROM Auftrag where userid = " + userId + "AND ausgeschrieben = true ;", conn);
             getAuftraegeFromDB(cmd, ref yourOrders);
             return yourOrders;
         }
@@ -104,6 +112,8 @@ namespace AppNetServer.Services
                 auftrag.titel = reader.GetString(2);
                 auftrag.beschreibung = reader.GetString(3);
                 auftrag.ort = reader.GetString(4);
+                auftrag.ausschreibungsende = reader.GetDateTime(5);
+                auftrag.ausgeschrieben = reader.GetBoolean(7);
                 listToSaveData.Add(auftrag);
             }
             conn.Close();

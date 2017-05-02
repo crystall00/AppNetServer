@@ -17,10 +17,10 @@ namespace AppNetServer
             return service.getAllOrders(sortParameter, published);
         }
 
-        // GET: api/auftrag/sortierParameter&published=false&userId
-        public ArrayList Get(int sortParameter, bool published, int userId)
+        // GET: api/auftrag/sortierParameter&userId
+        public ArrayList Get(int sortParameter, int userId)
         {
-            return service.getYourOrders(sortParameter, published, userId);
+            return service.getYourOrders(sortParameter, userId);
         }
 
         // POST: api/auftrag
