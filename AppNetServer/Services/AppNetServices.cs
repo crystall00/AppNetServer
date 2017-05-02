@@ -87,7 +87,7 @@ namespace AppNetServer.Services
         public ArrayList getYourOrders(string sortBy, int userId)
         {
             ArrayList yourOrders = new ArrayList();
-            SqlCommand cmd = new SqlCommand("SELECT * FROM Auftrag where userid = " + userId + " ORDER BY " + sortBy + " ASC ;", conn);
+            SqlCommand cmd = new SqlCommand("SELECT * FROM Auftrag where userid = " + userId + " ORDER BY " + sortBy + " DESC ;", conn);
             getAuftraegeFromDB(cmd, ref yourOrders);
             return yourOrders;
         }
@@ -95,7 +95,7 @@ namespace AppNetServer.Services
         public ArrayList getYourPublishedOrders(string sortBy, int userId)
         {
             ArrayList yourOrders = new ArrayList();
-            SqlCommand cmd = new SqlCommand("SELECT * FROM Auftrag where userid = " + userId + " AND ausgeschrieben = 1 ORDER BY " + sortBy + " ASC ;", conn);
+            SqlCommand cmd = new SqlCommand("SELECT * FROM Auftrag where userid = " + userId + " AND ausgeschrieben = 1 ORDER BY " + sortBy + " DESC ;", conn);
             getAuftraegeFromDB(cmd, ref yourOrders);
             return yourOrders;
         }
