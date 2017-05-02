@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AppNetServer.Services
 {
-    class AppNetServices
+    public class AppNetServices
     {
         private static string connectionString = "Data Source=152.96.56.70,40001;Initial Catalog=AppNet;Persist Security Info=True;User ID=sa;Password=HSR-00776688";
         SqlConnection conn = new SqlConnection(connectionString);
