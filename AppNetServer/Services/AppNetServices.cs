@@ -114,7 +114,10 @@ namespace AppNetServer.Services
                     auftrag.titel = reader.GetString(2);
                     auftrag.beschreibung = reader.GetString(3);
                     auftrag.ort = reader.GetString(4);
+                    if(reader.GetBoolean(7) == true)
+                    { 
                     auftrag.ausschreibungsende = reader.GetDateTime(5);
+                    }
                     auftrag.ausgeschrieben = reader.GetBoolean(7);
                     listToSaveData.Add(auftrag);
                 }
