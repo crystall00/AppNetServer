@@ -95,7 +95,7 @@ namespace AppNetServer.Services
         public ArrayList getYourPublishedOrders(int sortParameter, int userId)
         {
             ArrayList yourOrders = new ArrayList();
-            SqlCommand cmd = new SqlCommand("SELECT * FROM Auftrag where userid = " + userId + "AND ausgeschrieben = True ;", conn);
+            SqlCommand cmd = new SqlCommand("SELECT * FROM Auftrag where userid = " + userId + " AND ausgeschrieben = 1 ;", conn);
             getAuftraegeFromDB(cmd, ref yourOrders);
             return yourOrders;
         }
