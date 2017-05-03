@@ -13,17 +13,10 @@ namespace AppNetServer
     {
         private AppNetServices service = new AppNetServices();
 
-        public AuftragController(AppNetServices service)
-        {
-            this.service = service;
-        }
-
         // GET: api/auftrag/
-        public HttpResponseMessage Get()
+        public ArrayList Get()
         {
-            HttpResponseMessage response = new HttpResponseMessage();
-            response = Request.CreateResponse(HttpStatusCode.OK, service.getAllOrders());
-            return response;
+            return service.getAllOrders();
         }
 
         // GET: api/auftrag/sortBy&userId

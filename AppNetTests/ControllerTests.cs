@@ -35,7 +35,7 @@ namespace AppNetTests
         [Test]
         public void GetYourOrdersTest()
         {
-            var auftragController = new AuftragController(appnetServices)
+            var auftragController = new AuftragController()
             {
                 Request = new HttpRequestMessage
                 {
@@ -46,7 +46,7 @@ namespace AppNetTests
 
             auftragController.Request.Properties.Add(HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration());
 
-            response = auftragController.Get();
+            response = auftragController.Request.CreateResponse(HttpStatusCode.OK,auftragController.Get());
 
             var responseResult = JsonConvert.DeserializeObject<List<Auftrag>>(response.Content.ReadAsStringAsync().Result);
             Assert.AreEqual(response.StatusCode, HttpStatusCode.OK);
