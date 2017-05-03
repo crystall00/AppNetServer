@@ -3,6 +3,7 @@ using AppNetServer.Services;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
@@ -11,6 +12,19 @@ namespace AppNetServer
     public class AuftragController : ApiController
     {
         private AppNetServices service = new AppNetServices();
+
+        public AuftragController(AppNetServices service)
+        {
+            this.service = service;
+        }
+
+        // GET: api/auftrag/
+        public HttpResponseMessage Get()
+        {
+            HttpResponseMessage response = new HttpResponseMessage();
+            response = Request.CreateResponse(HttpStatusCode.OK, service.getAllOrders());
+            return response;
+        }
 
         // GET: api/auftrag/sortBy&userId
         public ArrayList Get(string sortBy, int userId)

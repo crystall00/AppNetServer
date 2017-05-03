@@ -76,7 +76,7 @@ namespace AppNetServer.Services
 
         }
 
-        public ArrayList getAllOrders(string sortBy, bool published)
+        public ArrayList getAllOrders()
         {
             ArrayList allOrders = new ArrayList();
             SqlCommand cmd = new SqlCommand("SELECT * FROM Auftrag;", conn);
