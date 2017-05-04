@@ -13,15 +13,16 @@ namespace AppNetServer.Services
         private static string connectionString = "Data Source=152.96.56.70,40001;Initial Catalog=AppNet;Persist Security Info=True;User ID=sa;Password=HSR-00776688";
         SqlConnection conn = new SqlConnection(connectionString);
 
-        public void addAuftrag (Auftrag auftrag)
+        public void addAuftrag(Auftrag auftrag)
         {
             conn.Open();
-            try { 
-                SqlCommand cmd = new SqlCommand("INSERT INTO dbo.Auftrag (erstelldatum,titel,beschreibung,ort, userid) VALUES ('" + auftrag.erstelldatum + "','" + auftrag.titel + "','" + auftrag.beschreibung + "','" + auftrag.ort + "','" + auftrag.userid + "') ",conn);
+            try
+            {
+                SqlCommand cmd = new SqlCommand("INSERT INTO dbo.Auftrag (erstelldatum,titel,beschreibung,ort, userid) VALUES ('" + auftrag.erstelldatum + "','" + auftrag.titel + "','" + auftrag.beschreibung + "','" + auftrag.ort + "','" + auftrag.userid + "') ", conn);
                 cmd.ExecuteNonQuery();
                 conn.Close();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 conn.Close();
@@ -33,7 +34,7 @@ namespace AppNetServer.Services
             SqlCommand cmd = new SqlCommand("SELECT * FROM Auftrag where auftragsNummer = " + auftragsNummer.ToString() + ";", conn);
             conn.Open();
             var mssqlReader = cmd.ExecuteReader();
-            if(mssqlReader.Read())
+            if (mssqlReader.Read())
             {
                 mssqlReader.Close();
                 try
@@ -43,7 +44,7 @@ namespace AppNetServer.Services
                     conn.Close();
                     return true;
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                     return false;
@@ -62,12 +63,12 @@ namespace AppNetServer.Services
             try
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("DELETE FROM dbo.Auftrag where auftragsNummer = " + auftragsNummer.ToString(),conn);
+                SqlCommand cmd = new SqlCommand("DELETE FROM dbo.Auftrag where auftragsNummer = " + auftragsNummer.ToString(), conn);
                 cmd.ExecuteNonQuery();
                 conn.Close();
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 conn.Close();
@@ -104,7 +105,7 @@ namespace AppNetServer.Services
         {
             conn.Open();
             try
-            { 
+            {
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
@@ -114,16 +115,16 @@ namespace AppNetServer.Services
                     auftrag.titel = reader.GetString(2);
                     auftrag.beschreibung = reader.GetString(3);
                     auftrag.ort = reader.GetString(4);
-                    if(reader.GetBoolean(7) == true)
-                    { 
-                    auftrag.ausschreibungsende = reader.GetDateTime(5);
+                    if (reader.GetBoolean(7) == true)
+                    {
+                        auftrag.ausschreibungsende = reader.GetDateTime(5);
                     }
                     auftrag.ausgeschrieben = reader.GetBoolean(7);
                     listToSaveData.Add(auftrag);
                 }
                 conn.Close();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 conn.Close();
@@ -131,6 +132,6 @@ namespace AppNetServer.Services
         }
 
 
-    
+
     }
 }
