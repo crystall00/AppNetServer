@@ -119,6 +119,10 @@
       <Project>{2b652764-b20a-4d65-a2d1-f062acab891c}</Project>
       <Name>AppNetServer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\AppNetTestHelper\AppNetTestHelper.csproj">
+      <Project>{07495c82-32f3-4b12-b809-fd981ff5af6f}</Project>
+      <Name>AppNetTestHelper</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="System.Runtime.dll" />

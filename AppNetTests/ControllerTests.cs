@@ -5,6 +5,7 @@ using System.Text;
 using System.Web.Http;
 using AppNetServer;
 using AppNetServer.Services;
+using AppNetTestHelper;
 using System.Net.Http;
 using System.Web.Http.Hosting;
 using Newtonsoft.Json;
