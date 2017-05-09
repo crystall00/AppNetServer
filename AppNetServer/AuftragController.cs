@@ -14,16 +14,28 @@ namespace AppNetServer
         private AppNetServices service = new AppNetServices();
 
         [HttpGet]
-        //[ActionName("allOrders")]
+        [ActionName("allOrders")]
         public ArrayList Get()
         {
             return service.getAllOrders();
         }
 
+        [Authorize]
+        [HttpGet]
+        [ActionName("yourOrders")]
         // GET: api/auftrag/sortBy&userId
         public ArrayList Get(string sortBy, int userId)
         {
             return service.getYourOrders(sortBy, userId);
+        }
+
+        [Authorize]
+        [HttpGet]
+        [ActionName("YourPublishedOrders")]
+        // GET: api/ausschreibung?sortBy&userId
+        public ArrayList GetYourPublishedOrders(string sortBy, int userId)
+        {
+            return service.getYourPublishedOrders(sortBy, userId);
         }
 
         // POST: api/auftrag

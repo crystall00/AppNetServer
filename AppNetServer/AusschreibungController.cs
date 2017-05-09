@@ -11,6 +11,10 @@ namespace AppNetServer
     public class AusschreibungController : ApiController
     {
         private AppNetServices service = new AppNetServices();
+
+        [Authorize]
+        [HttpGet]
+        [ActionName("published")]
         // GET: api/ausschreibung?sortBy&userId
         public ArrayList Get(string sortBy, int userId)
         {
