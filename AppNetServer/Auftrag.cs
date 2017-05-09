@@ -9,6 +9,7 @@
 
 namespace AppNetServer
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -22,7 +23,7 @@ namespace AppNetServer
         public Nullable<System.DateTime> ausschreibungsende { get; set; }
         public int userid { get; set; }
         public bool ausgeschrieben { get; set; }
-    
+        [JsonIgnore]
         public virtual Auftraggeber Auftraggeber { get; set; }
     }
 }

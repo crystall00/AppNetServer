@@ -6,6 +6,9 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Linq;
+using Newtonsoft.Json;
+using System.Data.Entity;
 
 namespace AppNetServer
 {
@@ -14,15 +17,18 @@ namespace AppNetServer
         private AppNetServices service = new AppNetServices();
 
         [HttpGet]
-        [ActionName("allOrders")]
-        public ArrayList Get()
+        [ActionName("test")]
+        public IEnumerable<Auftrag> Get()
         {
-            return service.getAllOrders();
+            using (AppNetEntities2 entities = new AppNetEntities2())
+            {
+                return entities.Auftrag.ToList();
+            }
         }
 
         [Authorize]
         [HttpGet]
-        [ActionName("yourOrders")]
+        [ActionName("YourOrders")]
         // GET: api/auftrag/sortBy&userId
         public ArrayList Get(string sortBy, int userId)
         {
@@ -38,13 +44,26 @@ namespace AppNetServer
             return service.getYourPublishedOrders(sortBy, userId);
         }
 
+        [HttpPost]
+        [ActionName("PostOrder")]
         // POST: api/auftrag
         public HttpResponseMessage Post([FromBody]Auftrag auftrag)
         {
-            service.addAuftrag(auftrag);
-            HttpResponseMessage response = Request.CreateResponse(System.Net.HttpStatusCode.Created);
-            //response.Headers.Location = new Uri(Request.RequestUri, String.Format("demo"));
-            return response;
+            using (var context = new AppNetEntities2())
+            {
+                try { 
+                    context.Auftrag.Add(auftrag);
+                    context.SaveChanges();
+                    HttpResponseMessage response = Request.CreateResponse(System.Net.HttpStatusCode.Created);
+                    return response;
+                }
+                catch (Exception ex)
+                {
+                    HttpResponseMessage response = Request.CreateResponse(System.Net.HttpStatusCode.NotFound);
+                    Console.WriteLine(ex.Message);
+                    return response;
+                }
+            } 
         }
         // DELETE: api/auftrag/5
         public HttpResponseMessage Delete(int auftragsNummer)
