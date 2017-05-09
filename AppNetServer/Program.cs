@@ -7,7 +7,7 @@ namespace AppNetServer
     {
         static void Main(string[] args)
         {
-            using (WebApp.Start<Startup>("http://localhost:9000"))
+            using (WebApp.Start<Startup>("http://appnet.hsr.ch:40000"))
             {
                 Console.WriteLine("####################");
                 Console.WriteLine("#### AppNet v1.0 ###");
