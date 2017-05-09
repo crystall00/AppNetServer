@@ -189,7 +189,6 @@
     <Compile Include="DataController.cs" />
     <Compile Include="AusschreibungController.cs" />
     <Compile Include="AuthorizationServerProvider.cs" />
-    <Compile Include="AuthorizeAttribute.cs" />
     <Compile Include="ProfilController.cs" />
     <Compile Include="OfferteController.cs" />
     <Compile Include="Auftraggeber.cs">

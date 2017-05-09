@@ -13,7 +13,9 @@ namespace AppNetServer
     {
         private AppNetServices service = new AppNetServices();
 
-        // GET: api/auftrag/
+        [Authorize]
+        [HttpGet]
+        [ActionName("allOrders")]
         public ArrayList Get()
         {
             return service.getAllOrders();

@@ -20,7 +20,6 @@ namespace AppNetServer
         [AllowAnonymous]
         [HttpGet]
         [ActionName("forall")]
-        //[Route("api/data/forall")]
         public IHttpActionResult Get()
         {
             return Ok("Current Server Time is:" + DateTime.Now.ToString());

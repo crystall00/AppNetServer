@@ -28,7 +28,7 @@ namespace AppNetServer
             app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
 
             config.Routes.MapHttpRoute(
-                 name: "API Default",
+                name: "API Default",
                 routeTemplate: "api/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional }
              );
