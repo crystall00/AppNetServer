@@ -44,6 +44,7 @@ namespace AppNetServer
             return service.getYourPublishedOrders(sortBy, userId);
         }
 
+        [Authorize]
         [HttpPost]
         [ActionName("PostOrder")]
         // POST: api/auftrag
@@ -65,6 +66,10 @@ namespace AppNetServer
                 }
             } 
         }
+
+        [Authorize]
+        [HttpDelete]
+        [ActionName("DeleteOrder")]
         // DELETE: api/auftrag/5
         public HttpResponseMessage Delete(int auftragsNummer)
         {
@@ -81,6 +86,9 @@ namespace AppNetServer
             }
         }
 
+        [Authorize]
+        [HttpPut]
+        [ActionName("UpdateOrder")]
         // PUT: api/auftrag/5
         public HttpResponseMessage Put(int auftragsNummer, [FromBody]Auftrag auftrag)
         {
