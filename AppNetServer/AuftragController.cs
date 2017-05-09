@@ -13,7 +13,6 @@ namespace AppNetServer
     {
         private AppNetServices service = new AppNetServices();
 
-        [Authorize]
         [HttpGet]
         [ActionName("allOrders")]
         public ArrayList Get()
