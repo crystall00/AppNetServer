@@ -1,4 +1,5 @@
-﻿using Microsoft.Owin.Security.OAuth;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.Owin.Security.OAuth;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,16 +7,17 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
+#pragma warning disable 1591
+
 namespace AppNetServer
 {
     class AuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
         public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
-            // return base.ValidateClientAuthentication(context);
             context.Validated();
         }
-     
+
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
@@ -32,15 +34,15 @@ namespace AppNetServer
             {
                 identity.AddClaim(new Claim(ClaimTypes.Role, "user"));
                 identity.AddClaim(new Claim("username", "user"));
-                identity.AddClaim(new Claim(ClaimTypes.Name, "Alfred sopi"));
+                identity.AddClaim(new Claim(ClaimTypes.Name, "Alfred Sopi"));
                 context.Validated(identity);
-               
             }
             else
             {
                 context.SetError("invalid_grant", "Provided username or password is incorrect!");
                 return;
             }
+        
         }
     }
 }

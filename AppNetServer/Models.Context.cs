@@ -6,17 +6,17 @@
 //     Manuelle Änderungen an dieser Datei werden überschrieben, wenn der Code neu generiert wird.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+#pragma warning disable 1591
 namespace AppNetServer
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class AppNetEntities2 : DbContext
+    public partial class AppNetEntities : DbContext
     {
-        public AppNetEntities2()
-            : base("name=AppNetEntities2")
+        public AppNetEntities()
+            : base("name=AppNetEntities")
         {
         }
     
@@ -28,7 +28,10 @@ namespace AppNetServer
         public virtual DbSet<Auftrag> Auftrag { get; set; }
         public virtual DbSet<Auftraggeber> Auftraggeber { get; set; }
         public virtual DbSet<Auftragnehmer> Auftragnehmer { get; set; }
-        public virtual DbSet<Offerte> Offerte { get; set; }
         public virtual DbSet<Bewertung> Bewertung { get; set; }
+        public virtual DbSet<Offerte> Offerte { get; set; }
+        public virtual DbSet<Role> Role { get; set; }
+        public virtual DbSet<UserClaim> UserClaim { get; set; }
+        public virtual DbSet<UserLogin> UserLogin { get; set; }
     }
 }

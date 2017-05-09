@@ -4,6 +4,10 @@ using System.Web.Http;
 using Microsoft.Owin;
 using Owin;
 using Microsoft.Owin.Security.OAuth;
+using Microsoft.Owin.Extensions;
+using Swashbuckle.Application;
+
+#pragma warning disable 1591
 
 [assembly: OwinStartup(typeof(AppNetServer.Startup))]
 namespace AppNetServer
@@ -32,7 +36,13 @@ namespace AppNetServer
                 routeTemplate: "api/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional }
              );
+            config.EnableSwagger(c =>
+            {
+                c.IncludeXmlComments("docs.xml");
+                c.SingleApiVersion("1.0", "Owin Swashbuckle Demo");
+            }).EnableSwaggerUi();
 
+            app.UseStageMarker(PipelineStage.MapHandler);
             app.UseWebApi(config);
         }
 

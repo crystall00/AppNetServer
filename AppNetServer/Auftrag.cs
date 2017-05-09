@@ -6,10 +6,9 @@
 //     Manuelle Änderungen an dieser Datei werden überschrieben, wenn der Code neu generiert wird.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+#pragma warning disable 1591
 namespace AppNetServer
 {
-    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -21,9 +20,9 @@ namespace AppNetServer
         public string beschreibung { get; set; }
         public string ort { get; set; }
         public Nullable<System.DateTime> ausschreibungsende { get; set; }
-        public int userid { get; set; }
+        public long Id { get; set; }
         public bool ausgeschrieben { get; set; }
-        [JsonIgnore]
+    
         public virtual Auftraggeber Auftraggeber { get; set; }
     }
 }

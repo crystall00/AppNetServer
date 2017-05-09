@@ -1,13 +1,14 @@
 ﻿using System;
 using Microsoft.Owin.Hosting;
 
+#pragma warning disable 1591
 namespace AppNetServer
 {
     class Program
     {
         static void Main(string[] args)
         {
-            using (WebApp.Start<Startup>("http://appnet.hsr.ch:40000"))
+            using (WebApp.Start<Startup>("http://appnet.hsr.ch:40000"))//http://appnet.hsr.ch:40000"))http://localhost:9000
             {
                 Console.WriteLine("####################");
                 Console.WriteLine("#### AppNet v1.0 ###");

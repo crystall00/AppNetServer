@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Web.Http;
 
+#pragma warning disable 1591
+
 namespace AppNetServer
 {
     public class AusschreibungController : ApiController

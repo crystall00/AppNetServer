@@ -4,13 +4,19 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f679d1623ce74adfb505e7fa129bda36" Name="Diagram1">
-        <EntityTypeShape EntityType="AppNetModel.Auftrag" Width="2.125" PointX="8.875" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="AppNetModel.Auftraggeber" Width="1.5" PointX="2.875" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="AppNetModel.Auftragnehmer" Width="1.5" PointX="4.625" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="AppNetModel.Offerte" Width="1.75" PointX="6.375" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="AppNetModel.Bewertung" Width="1.5" PointX="1.125" PointY="1" />
-        <AssociationConnector Association="AppNetModel.FK_Auftrag_ToAuftraggeber" />
+      <Diagram DiagramId="cf30e2771f4e4755998c646f2296649f" Name="Diagram1">
+        <EntityTypeShape EntityType="AppNetModel.Auftrag" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AppNetModel.Auftraggeber" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AppNetModel.Auftragnehmer" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AppNetModel.Bewertung" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AppNetModel.Offerte" Width="1.5" PointX="7.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AppNetModel.Role" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AppNetModel.UserClaim" Width="1.5" PointX="5.25" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AppNetModel.UserLogin" Width="1.5" PointX="5.25" PointY="7.5" IsExpanded="true" />
+        <AssociationConnector Association="AppNetModel.FK_Auftrag_ToAuftraggeber" ManuallyRouted="false" />
+        <AssociationConnector Association="AppNetModel.FK_UserClaim_User" ManuallyRouted="false" />
+        <AssociationConnector Association="AppNetModel.FK_UserLogin_User" ManuallyRouted="false" />
+        <AssociationConnector Association="AppNetModel.UserRole" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

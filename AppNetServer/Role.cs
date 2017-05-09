@@ -12,15 +12,18 @@ namespace AppNetServer
     using System;
     using System.Collections.Generic;
     
-    public partial class Auftragnehmer
+    public partial class Role
     {
-        public int userid { get; set; }
-        public string username { get; set; }
-        public string passwort { get; set; }
-        public string e_mail { get; set; }
-        public string firmenname { get; set; }
-        public string firmenadresse { get; set; }
-        public string logo { get; set; }
-        public string telefonnummer { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Role()
+        {
+            this.Auftraggeber = new HashSet<Auftraggeber>();
+        }
+    
+        public long Id { get; set; }
+        public string Name { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Auftraggeber> Auftraggeber { get; set; }
     }
 }

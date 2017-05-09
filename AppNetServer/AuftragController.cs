@@ -10,6 +10,8 @@ using System.Linq;
 using Newtonsoft.Json;
 using System.Data.Entity;
 
+#pragma warning disable 1591
+
 namespace AppNetServer
 {
     public class AuftragController : ApiController
@@ -20,7 +22,7 @@ namespace AppNetServer
         [ActionName("test")]
         public IEnumerable<Auftrag> Get()
         {
-            using (AppNetEntities2 entities = new AppNetEntities2())
+            using (AppNetEntities entities = new AppNetEntities())
             {
                 return entities.Auftrag.ToList();
             }
@@ -50,7 +52,7 @@ namespace AppNetServer
         // POST: api/auftrag
         public HttpResponseMessage Post([FromBody]Auftrag auftrag)
         {
-            using (var context = new AppNetEntities2())
+            using (var context = new AppNetEntities())
             {
                 try { 
                     context.Auftrag.Add(auftrag);

@@ -12,15 +12,13 @@ namespace AppNetServer
     using System;
     using System.Collections.Generic;
     
-    public partial class Auftragnehmer
+    public partial class UserClaim
     {
-        public int userid { get; set; }
-        public string username { get; set; }
-        public string passwort { get; set; }
-        public string e_mail { get; set; }
-        public string firmenname { get; set; }
-        public string firmenadresse { get; set; }
-        public string logo { get; set; }
-        public string telefonnummer { get; set; }
+        public long Id { get; set; }
+        public long UserId { get; set; }
+        public string ClaimType { get; set; }
+        public string ClaimValue { get; set; }
+    
+        public virtual Auftraggeber Auftraggeber { get; set; }
     }
 }

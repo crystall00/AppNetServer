@@ -6,7 +6,7 @@
 //     Manuelle Änderungen an dieser Datei werden überschrieben, wenn der Code neu generiert wird.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+#pragma warning disable 1591
 namespace AppNetServer
 {
     using System;
@@ -18,19 +18,30 @@ namespace AppNetServer
         public Auftraggeber()
         {
             this.Auftrag = new HashSet<Auftrag>();
+            this.UserClaim = new HashSet<UserClaim>();
+            this.UserLogin = new HashSet<UserLogin>();
+            this.Role = new HashSet<Role>();
         }
     
-        public int userid { get; set; }
-        public string username { get; set; }
-        public string passwort { get; set; }
-        public string e_mail { get; set; }
+        public long Id { get; set; }
+        public string UserName { get; set; }
+        public string PasswordHash { get; set; }
+        public string Email { get; set; }
         public string vorname { get; set; }
         public string nachname { get; set; }
         public string adresse { get; set; }
         public string profilbild { get; set; }
         public string telefonnummer { get; set; }
+        public string SecurityStamp { get; set; }
+        public bool IsConfirmed { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Auftrag> Auftrag { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserClaim> UserClaim { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserLogin> UserLogin { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Role> Role { get; set; }
     }
 }

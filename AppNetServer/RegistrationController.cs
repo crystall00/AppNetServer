@@ -3,38 +3,109 @@ using AppNetServer.Services;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Linq;
+using Newtonsoft.Json;
+using System.Data.Entity;
+
+#pragma warning disable 1591
 
 namespace AppNetServer
 {
     public class RegistrationController : ApiController
     {
         private AppNetServices service = new AppNetServices();
-        // GET: api/registration
-        public void Get()
-        {
-           
-        }
 
-        // POST: api/registration/id
-        public void Post(int id, [FromBody]Object user)
+        [AllowAnonymous]
+        [HttpGet]
+        [ActionName("test")]
+        public IEnumerable<Auftrag> Get()
         {
-            if(id == 0)
+            using (AppNetEntities entities = new AppNetEntities())
             {
-                Auftraggeber auftraggeber = (Auftraggeber)user;
-
-            }
-            else if (id == 1)
-            {
-                Auftragnehmer auftragnehmer = (Auftragnehmer)user;
+                return entities.Auftrag.ToList();
             }
         }
 
-        //POST: api/registration
-        public void Post([FromBody]Auftragnehmer auftragnehmer)
+        [Authorize]
+        [HttpGet]
+        [ActionName("YourOrders")]
+        // GET: api/auftrag/sortBy&userId
+        public ArrayList Get(string sortBy, int userId)
         {
-
+            return service.getYourOrders(sortBy, userId);
         }
-    }
+
+        [Authorize]
+        [HttpGet]
+        [ActionName("YourPublishedOrders")]
+        // GET: api/ausschreibung?sortBy&userId
+        public ArrayList GetYourPublishedOrders(string sortBy, int userId)
+        {
+            return service.getYourPublishedOrders(sortBy, userId);
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ActionName("PostOrder")]
+        // POST: api/auftrag
+        public HttpResponseMessage Post([FromBody]Auftrag auftrag)
+        {
+            using (var context = new AppNetEntities())
+            {
+                try { 
+                    context.Auftrag.Add(auftrag);
+                    context.SaveChanges();
+                    HttpResponseMessage response = Request.CreateResponse(System.Net.HttpStatusCode.Created);
+                    return response;
+                }
+                catch (Exception ex)
+                {
+                    HttpResponseMessage response = Request.CreateResponse(System.Net.HttpStatusCode.NotFound);
+                    Console.WriteLine(ex.Message);
+                    return response;
+                }
+            } 
+        }
+
+        [Authorize]
+        [HttpDelete]
+        [ActionName("DeleteOrder")]
+        // DELETE: api/auftrag/5
+        public HttpResponseMessage Delete(int auftragsNummer)
+        {
+            bool recordExisted = service.deleteAuftrag(auftragsNummer);
+            if (recordExisted){
+                HttpResponseMessage response = Request.CreateResponse(System.Net.HttpStatusCode.NoContent);
+                return response;
+
+            }
+            else
+            {
+                HttpResponseMessage response = Request.CreateResponse(System.Net.HttpStatusCode.NotFound);
+                return response;
+            }
+        }
+
+        [Authorize]
+        [HttpPut]
+        [ActionName("UpdateOrder")]
+        // PUT: api/auftrag/5
+        public HttpResponseMessage Put(int auftragsNummer, [FromBody]Auftrag auftrag)
+        {
+            bool recordExisted = service.updateAuftrag(auftragsNummer, auftrag);
+            HttpResponseMessage response;
+            if (recordExisted)
+            {
+                response = Request.CreateResponse(System.Net.HttpStatusCode.NoContent);
+            }
+            else
+            {
+                response = Request.CreateResponse(System.Net.HttpStatusCode.NotFound);
+            }
+            return response;
+        }
+    } 
 }

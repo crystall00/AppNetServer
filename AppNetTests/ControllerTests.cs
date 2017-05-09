@@ -72,11 +72,11 @@ namespace AppNetTests
         {
             var auftragListe = new List<Auftrag>
             {
-                new Auftrag() {erstelldatum = Convert.ToDateTime("01.05.2017 20:30:55"), titel = "iPad Game", beschreibung = "Hello World. lorem Impusm", ort = "Schmerikon", userid = 0, ausgeschrieben = false, ausschreibungsende = null},
-                new Auftrag() {erstelldatum = Convert.ToDateTime("01.05.2017 21:22:01"), titel = "Mobile App", beschreibung = "This is a Test. lorem Impusm", ort = "Rapperswil", userid = 0, ausgeschrieben = false, ausschreibungsende = null},
-                new Auftrag() {erstelldatum = Convert.ToDateTime("02.05.2017 08:20:22"), titel = "Microsoft Game", beschreibung = "lorem Impusm. I request an App", ort = "Zuerich", userid = 0, ausgeschrieben = false, ausschreibungsende = null},
-                new Auftrag() {erstelldatum = Convert.ToDateTime("02.05.2017 11:55:30"), titel = "Android App", beschreibung = "lorem Impusm", ort = "Bern", userid = 0, ausgeschrieben = false, ausschreibungsende = null},
-                new Auftrag() {erstelldatum = Convert.ToDateTime("03.05.2017 06:21:33"), titel = "Security App", beschreibung = "ABC. lorem Impusm", ort = "Luzern", userid = 0, ausgeschrieben = false, ausschreibungsende = null}
+                new Auftrag() {erstelldatum = Convert.ToDateTime("01.05.2017 20:30:55"), titel = "iPad Game", beschreibung = "Hello World. lorem Impusm", ort = "Schmerikon", Id = 0, ausgeschrieben = false, ausschreibungsende = null},
+                new Auftrag() {erstelldatum = Convert.ToDateTime("01.05.2017 21:22:01"), titel = "Mobile App", beschreibung = "This is a Test. lorem Impusm", ort = "Rapperswil", Id = 0, ausgeschrieben = false, ausschreibungsende = null},
+                new Auftrag() {erstelldatum = Convert.ToDateTime("02.05.2017 08:20:22"), titel = "Microsoft Game", beschreibung = "lorem Impusm. I request an App", ort = "Zuerich", Id = 0, ausgeschrieben = false, ausschreibungsende = null},
+                new Auftrag() {erstelldatum = Convert.ToDateTime("02.05.2017 11:55:30"), titel = "Android App", beschreibung = "lorem Impusm", ort = "Bern", Id = 0, ausgeschrieben = false, ausschreibungsende = null},
+                new Auftrag() {erstelldatum = Convert.ToDateTime("03.05.2017 06:21:33"), titel = "Security App", beschreibung = "ABC. lorem Impusm", ort = "Luzern", Id = 0, ausgeschrieben = false, ausschreibungsende = null}
             };
 
             return auftragListe;

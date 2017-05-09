@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Security.Claims;
 using System.Web.Http;
 
+#pragma warning disable 1591
 
 namespace AppNetServer
 {

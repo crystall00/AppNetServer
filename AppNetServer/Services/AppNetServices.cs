@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+#pragma warning disable 1591
+
 namespace AppNetServer.Services
 {
     public class AppNetServices
@@ -18,7 +20,7 @@ namespace AppNetServer.Services
             conn.Open();
             try
             {
-                SqlCommand cmd = new SqlCommand("INSERT INTO dbo.Auftrag (erstelldatum,titel,beschreibung,ort, userid) VALUES ('" + auftrag.erstelldatum + "','" + auftrag.titel + "','" + auftrag.beschreibung + "','" + auftrag.ort + "','" + auftrag.userid + "') ", conn);
+                SqlCommand cmd = new SqlCommand("INSERT INTO dbo.Auftrag (erstelldatum,titel,beschreibung,ort, Id) VALUES ('" + auftrag.erstelldatum + "','" + auftrag.titel + "','" + auftrag.beschreibung + "','" + auftrag.ort + "','" + auftrag.Id + "') ", conn);
                 cmd.ExecuteNonQuery();
                 conn.Close();
             }
@@ -88,7 +90,7 @@ namespace AppNetServer.Services
         public ArrayList getYourOrders(string sortBy, int userId)
         {
             ArrayList yourOrders = new ArrayList();
-            SqlCommand cmd = new SqlCommand("SELECT * FROM Auftrag where userid = " + userId + " ORDER BY " + sortBy + " DESC ;", conn);
+            SqlCommand cmd = new SqlCommand("SELECT * FROM Auftrag where Id = " + userId + " ORDER BY " + sortBy + " DESC ;", conn);
             getAuftraegeFromDB(cmd, ref yourOrders);
             return yourOrders;
         }
@@ -96,7 +98,7 @@ namespace AppNetServer.Services
         public ArrayList getYourPublishedOrders(string sortBy, int userId)
         {
             ArrayList yourOrders = new ArrayList();
-            SqlCommand cmd = new SqlCommand("SELECT * FROM Auftrag where userid = " + userId + " AND ausgeschrieben = 1 ORDER BY " + sortBy + " DESC ;", conn);
+            SqlCommand cmd = new SqlCommand("SELECT * FROM Auftrag where Id = " + userId + " AND ausgeschrieben = 1 ORDER BY " + sortBy + " DESC ;", conn);
             getAuftraegeFromDB(cmd, ref yourOrders);
             return yourOrders;
         }
