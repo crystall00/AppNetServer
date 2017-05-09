@@ -14,7 +14,7 @@ namespace AppNetServer
         private AppNetServices service = new AppNetServices();
 
         [HttpGet]
-        [ActionName("allOrders")]
+        //[ActionName("allOrders")]
         public ArrayList Get()
         {
             return service.getAllOrders();
