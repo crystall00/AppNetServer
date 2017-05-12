@@ -6,7 +6,7 @@
 //     Manuelle Änderungen an dieser Datei werden überschrieben, wenn der Code neu generiert wird.
 // </auto-generated>
 //------------------------------------------------------------------------------
-#pragma warning disable 1591
+
 namespace AppNetServer
 {
     using System;

@@ -6,7 +6,7 @@
 //     Manuelle Änderungen an dieser Datei werden überschrieben, wenn der Code neu generiert wird.
 // </auto-generated>
 //------------------------------------------------------------------------------
-#pragma warning disable 1591
+
 namespace AppNetServer
 {
     using System;
@@ -18,5 +18,8 @@ namespace AppNetServer
         public Nullable<int> kostenvoranschlag { get; set; }
         public byte[] erstelldatum { get; set; }
         public string status { get; set; }
+        public int auftragsNummer { get; set; }
+    
+        public virtual Auftrag Auftrag { get; set; }
     }
 }

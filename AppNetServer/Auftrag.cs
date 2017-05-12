@@ -6,7 +6,7 @@
 //     Manuelle Änderungen an dieser Datei werden überschrieben, wenn der Code neu generiert wird.
 // </auto-generated>
 //------------------------------------------------------------------------------
-#pragma warning disable 1591
+
 namespace AppNetServer
 {
     using System;
@@ -14,6 +14,12 @@ namespace AppNetServer
     
     public partial class Auftrag
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Auftrag()
+        {
+            this.Offerte = new HashSet<Offerte>();
+        }
+    
         public int auftragsNummer { get; set; }
         public Nullable<System.DateTime> erstelldatum { get; set; }
         public string titel { get; set; }
@@ -24,5 +30,7 @@ namespace AppNetServer
         public bool ausgeschrieben { get; set; }
     
         public virtual Auftraggeber Auftraggeber { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Offerte> Offerte { get; set; }
     }
 }

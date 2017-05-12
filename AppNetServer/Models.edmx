@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="AppNetModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="AppNetModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Auftrag">
           <Key>
             <PropertyRef Name="auftragsNummer" />
@@ -67,6 +67,7 @@
           <Property Name="kostenvoranschlag" Type="int" />
           <Property Name="erstelldatum" Type="timestamp" StoreGeneratedPattern="Computed" />
           <Property Name="status" Type="nvarchar" MaxLength="50" />
+          <Property Name="auftragsNummer" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -111,6 +112,18 @@
             </Principal>
             <Dependent Role="Auftrag">
               <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Offerte_Auftrag">
+          <End Role="Auftrag" Type="Self.Auftrag" Multiplicity="1" />
+          <End Role="Offerte" Type="Self.Offerte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auftrag">
+              <PropertyRef Name="auftragsNummer" />
+            </Principal>
+            <Dependent Role="Offerte">
+              <PropertyRef Name="auftragsNummer" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -184,6 +197,10 @@
             <End Role="Auftraggeber" EntitySet="Auftraggeber" />
             <End Role="Auftrag" EntitySet="Auftrag" />
           </AssociationSet>
+          <AssociationSet Name="FK_Offerte_Auftrag" Association="Self.FK_Offerte_Auftrag">
+            <End Role="Auftrag" EntitySet="Auftrag" />
+            <End Role="Offerte" EntitySet="Offerte" />
+          </AssociationSet>
           <AssociationSet Name="FK_UserClaim_User" Association="Self.FK_UserClaim_User">
             <End Role="Auftraggeber" EntitySet="Auftraggeber" />
             <End Role="UserClaim" EntitySet="UserClaim" />
@@ -201,8 +218,7 @@
             <End Role="UserRole" EntitySet="UserRole" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AppNetModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -219,6 +235,7 @@
           <Property Name="Id" Type="Int64" Nullable="false" />
           <Property Name="ausgeschrieben" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Auftraggeber" Relationship="Self.FK_Auftrag_ToAuftraggeber" FromRole="Auftrag" ToRole="Auftraggeber" />
+          <NavigationProperty Name="Offerte" Relationship="AppNetModel.FK_Offerte_Auftrag" FromRole="Auftrag" ToRole="Offerte" />
         </EntityType>
         <EntityType Name="Auftraggeber">
           <Key>
@@ -273,6 +290,8 @@
           <Property Name="kostenvoranschlag" Type="Int32" />
           <Property Name="erstelldatum" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="auftragsNummer" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Auftrag" Relationship="AppNetModel.FK_Offerte_Auftrag" FromRole="Offerte" ToRole="Auftrag" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -372,7 +391,23 @@
             <End Role="Role" EntitySet="Role" />
             <End Role="Auftraggeber" EntitySet="Auftraggeber" />
           </AssociationSet>
+          <AssociationSet Name="FK_Offerte_Auftrag" Association="AppNetModel.FK_Offerte_Auftrag">
+            <End Role="Auftrag" EntitySet="Auftrag" />
+            <End Role="Offerte" EntitySet="Offerte" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_Offerte_Auftrag">
+          <End Type="AppNetModel.Auftrag" Role="Auftrag" Multiplicity="1" />
+          <End Type="AppNetModel.Offerte" Role="Offerte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auftrag">
+              <PropertyRef Name="auftragsNummer" />
+            </Principal>
+            <Dependent Role="Offerte">
+              <PropertyRef Name="auftragsNummer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -438,6 +473,7 @@
           <EntitySetMapping Name="Offerte">
             <EntityTypeMapping TypeName="AppNetModel.Offerte">
               <MappingFragment StoreEntitySet="Offerte">
+                <ScalarProperty Name="auftragsNummer" ColumnName="auftragsNummer" />
                 <ScalarProperty Name="offertenNummer" ColumnName="offertenNummer" />
                 <ScalarProperty Name="kostenvoranschlag" ColumnName="kostenvoranschlag" />
                 <ScalarProperty Name="erstelldatum" ColumnName="erstelldatum" />

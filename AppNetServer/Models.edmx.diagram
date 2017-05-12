@@ -17,6 +17,7 @@
         <AssociationConnector Association="AppNetModel.FK_UserClaim_User" ManuallyRouted="false" />
         <AssociationConnector Association="AppNetModel.FK_UserLogin_User" ManuallyRouted="false" />
         <AssociationConnector Association="AppNetModel.UserRole" ManuallyRouted="false" />
+        <AssociationConnector Association="AppNetModel.FK_Offerte_Auftrag" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

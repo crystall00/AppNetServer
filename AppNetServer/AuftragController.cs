@@ -32,9 +32,23 @@ namespace AppNetServer
         [HttpGet]
         [ActionName("YourOrders")]
         // GET: api/auftrag/sortBy&userId
-        public ArrayList Get(string sortBy, int userId)
+        public IEnumerable<Auftrag> Get(string sortBy, int userId)
         {
-            return service.getYourOrders(sortBy, userId);
+            try
+            { 
+                using (AppNetEntities context = new AppNetEntities())
+                {
+                    var result = from b in context.Auftrag
+                               where b.Id.Equals(userId)
+                               select b;
+                    return result;
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
         }
 
         [Authorize]
