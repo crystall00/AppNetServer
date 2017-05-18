@@ -22,10 +22,8 @@ namespace AppNetServer
         [ActionName("test")]
         public IEnumerable<Auftrag> Get()
         {
-            using (AppNetEntities entities = new AppNetEntities())
-            {
-                return entities.Auftrag.ToList();
-            }
+            AppNetEntities entities = new AppNetEntities();
+            return entities.Auftrag.ToList();
         }
 
         [Authorize]
