@@ -9,6 +9,7 @@ using System.Web.Http;
 using System.Linq;
 using Newtonsoft.Json;
 using System.Data.Entity;
+using System.Linq.Dynamic;
 
 #pragma warning disable 1591
 
@@ -22,8 +23,8 @@ namespace AppNetServer
         [ActionName("test")]
         public IEnumerable<Auftrag> Get()
         {
-            AppNetEntities entities = new AppNetEntities();
-            return entities.Auftrag.ToList();
+            var dbContext = new AppNetEntities();
+            return dbContext.Auftrag.ToList();
         }
 
         [Authorize]
@@ -33,14 +34,15 @@ namespace AppNetServer
         public IEnumerable<Auftrag> Get(string sortBy, int userId)
         {
             try
-            { 
-                using (AppNetEntities context = new AppNetEntities())
-                {
-                    var result = from b in context.Auftrag
-                               where b.Id.Equals(userId)
-                               select b;
-                    return result;
-                }
+            {
+                var context = new AppNetEntities();
+
+                var result = context.Auftrag
+                            .Where(a => a.Id == userId)
+                            .OrderBy(sortBy + " ASC")
+                            .Select(a => a);
+
+                return result.ToList();
             }
             catch(Exception ex)
             {
@@ -53,9 +55,25 @@ namespace AppNetServer
         [HttpGet]
         [ActionName("YourPublishedOrders")]
         // GET: api/ausschreibung?sortBy&userId
-        public ArrayList GetYourPublishedOrders(string sortBy, int userId)
+        public IEnumerable<Auftrag> GetYourPublishedOrders(string sortBy, int userId)
         {
-            return service.getYourPublishedOrders(sortBy, userId);
+            try
+            {
+                var context = new AppNetEntities();
+
+                var result = context.Auftrag
+                            .Where(a => a.Id == userId)
+                            .Where(a => a.ausgeschrieben == true)
+                            .OrderBy(sortBy + " ASC")
+                            .Select(a => a);
+
+                return result.ToList();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
         }
 
         [Authorize]
