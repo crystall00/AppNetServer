@@ -18,7 +18,7 @@ namespace AppNetServer
     public class AuftragController : ApiController
     {
         private AppNetServices service = new AppNetServices();
-
+//test
         [HttpGet]
         [ActionName("test")]
         public IEnumerable<Auftrag> Get()
