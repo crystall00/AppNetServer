@@ -71,7 +71,6 @@ namespace AppNetServer
             }
             catch (Exception ex)
             {
-                //test
                 Console.WriteLine(ex.Message);
                 return null;
             }
