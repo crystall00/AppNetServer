@@ -5,7 +5,7 @@ using Microsoft.Owin.Hosting;
 namespace AppNetServer
 {
     class Program
-    {
+    {//test
         static void Main(string[] args)
         {
             using (WebApp.Start<Startup>("http://appnet.hsr.ch:40000"))//http://appnet.hsr.ch:40000"))http://localhost:9000
