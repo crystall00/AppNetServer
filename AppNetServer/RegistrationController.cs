@@ -40,7 +40,7 @@ namespace AppNetServer
 
         [AllowAnonymous]
         [HttpPost]
-        [ActionName("RegisterAuftranehmer")]
+        [ActionName("RegisterAuftragnehmer")]
         public HttpResponseMessage RegisterAuftragnehmer([FromBody] Auftragnehmer auftragnehmer)
         {
             using (var context = new AppNetEntities())
