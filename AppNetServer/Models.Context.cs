@@ -27,11 +27,10 @@ namespace AppNetServer
     
         public virtual DbSet<Auftrag> Auftrag { get; set; }
         public virtual DbSet<Auftraggeber> Auftraggeber { get; set; }
-        public virtual DbSet<Auftragnehmer> Auftragnehmer { get; set; }
-        public virtual DbSet<Bewertung> Bewertung { get; set; }
         public virtual DbSet<Offerte> Offerte { get; set; }
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<UserClaim> UserClaim { get; set; }
         public virtual DbSet<UserLogin> UserLogin { get; set; }
+        public virtual DbSet<Auftragnehmer> Auftragnehmer { get; set; }
     }
 }

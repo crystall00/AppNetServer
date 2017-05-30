@@ -20,8 +20,11 @@ namespace AppNetServer
         public byte[] erstelldatum { get; set; }
         public string status { get; set; }
         public int auftragsNummer { get; set; }
+        public int userid { get; set; }
 
         [JsonIgnore]
         public virtual Auftrag Auftrag { get; set; }
+        [JsonIgnore]
+        public virtual Auftragnehmer Auftragnehmer { get; set; }
     }
 }

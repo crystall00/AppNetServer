@@ -22,13 +22,15 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="bigint" Nullable="false" />
-          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
-          <Property Name="PasswordHash" Type="nvarchar" MaxLength="50" />
-          <Property Name="Email" Type="nvarchar" MaxLength="50" />
-          <Property Name="vorname" Type="nvarchar" MaxLength="50" />
-          <Property Name="nachname" Type="nvarchar" MaxLength="50" />
-          <Property Name="adresse" Type="nvarchar" MaxLength="50" />
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="vorname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="nachname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="postleitzahl" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ort" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="strasse" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="profilbild" Type="nvarchar" MaxLength="50" />
           <Property Name="telefonnummer" Type="nvarchar" MaxLength="50" />
           <Property Name="SecurityStamp" Type="nvarchar" MaxLength="254" />
@@ -38,26 +40,16 @@
           <Key>
             <PropertyRef Name="userid" />
           </Key>
-          <Property Name="userid" Type="int" Nullable="false" />
-          <Property Name="username" Type="nvarchar" MaxLength="50" />
-          <Property Name="passwort" Type="nvarchar" MaxLength="50" />
-          <Property Name="e-mail" Type="nvarchar" MaxLength="50" />
-          <Property Name="firmenname" Type="nvarchar" MaxLength="50" />
-          <Property Name="firmenadresse" Type="nvarchar" MaxLength="50" />
+          <Property Name="userid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="passwort" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="e-mail" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="firmenname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="postleitzahl" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ort" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="strasse" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="logo" Type="nvarchar" MaxLength="50" />
           <Property Name="telefonnummer" Type="nvarchar" MaxLength="50" />
-        </EntityType>
-        <EntityType Name="Bewertung">
-          <Key>
-            <PropertyRef Name="auftragnehmerId" />
-            <PropertyRef Name="auftraggeberId" />
-            <PropertyRef Name="auftragsId" />
-          </Key>
-          <Property Name="wert" Type="int" Nullable="false" />
-          <Property Name="kommentar" Type="nvarchar" MaxLength="50" />
-          <Property Name="auftragnehmerId" Type="int" Nullable="false" />
-          <Property Name="auftraggeberId" Type="int" Nullable="false" />
-          <Property Name="auftragsId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Offerte">
           <Key>
@@ -68,6 +60,7 @@
           <Property Name="erstelldatum" Type="timestamp" StoreGeneratedPattern="Computed" />
           <Property Name="status" Type="nvarchar" MaxLength="50" />
           <Property Name="auftragsNummer" Type="int" Nullable="false" />
+          <Property Name="userid" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -124,6 +117,18 @@
             </Principal>
             <Dependent Role="Offerte">
               <PropertyRef Name="auftragsNummer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Offerte_Auftragnehmer">
+          <End Role="Auftragnehmer" Type="Self.Auftragnehmer" Multiplicity="1" />
+          <End Role="Offerte" Type="Self.Offerte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auftragnehmer">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="Offerte">
+              <PropertyRef Name="userid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -187,7 +192,6 @@
           <EntitySet Name="Auftrag" EntityType="Self.Auftrag" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Auftraggeber" EntityType="Self.Auftraggeber" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Auftragnehmer" EntityType="Self.Auftragnehmer" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Bewertung" EntityType="Self.Bewertung" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Offerte" EntityType="Self.Offerte" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserClaim" EntityType="Self.UserClaim" Schema="dbo" store:Type="Tables" />
@@ -199,6 +203,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_Offerte_Auftrag" Association="Self.FK_Offerte_Auftrag">
             <End Role="Auftrag" EntitySet="Auftrag" />
+            <End Role="Offerte" EntitySet="Offerte" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Offerte_Auftragnehmer" Association="Self.FK_Offerte_Auftragnehmer">
+            <End Role="Auftragnehmer" EntitySet="Auftragnehmer" />
             <End Role="Offerte" EntitySet="Offerte" />
           </AssociationSet>
           <AssociationSet Name="FK_UserClaim_User" Association="Self.FK_UserClaim_User">
@@ -242,11 +250,11 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" />
-          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PasswordHash" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="vorname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="nachname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="vorname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="nachname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="adresse" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="profilbild" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="telefonnummer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -256,31 +264,9 @@
           <NavigationProperty Name="UserClaim" Relationship="Self.FK_UserClaim_User" FromRole="Auftraggeber" ToRole="UserClaim" />
           <NavigationProperty Name="UserLogin" Relationship="Self.FK_UserLogin_User" FromRole="Auftraggeber" ToRole="UserLogin" />
           <NavigationProperty Name="Role" Relationship="Self.UserRole" FromRole="Auftraggeber" ToRole="Role" />
-        </EntityType>
-        <EntityType Name="Auftragnehmer">
-          <Key>
-            <PropertyRef Name="userid" />
-          </Key>
-          <Property Name="userid" Type="Int32" Nullable="false" />
-          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="passwort" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="e_mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="firmenname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="firmenadresse" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="logo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="telefonnummer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Bewertung">
-          <Key>
-            <PropertyRef Name="auftragnehmerId" />
-            <PropertyRef Name="auftraggeberId" />
-            <PropertyRef Name="auftragsId" />
-          </Key>
-          <Property Name="wert" Type="Int32" Nullable="false" />
-          <Property Name="kommentar" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="auftragnehmerId" Type="Int32" Nullable="false" />
-          <Property Name="auftraggeberId" Type="Int32" Nullable="false" />
-          <Property Name="auftragsId" Type="Int32" Nullable="false" />
+          <Property Name="postleitzahl" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ort" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="strasse" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Offerte">
           <Key>
@@ -292,6 +278,8 @@
           <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="auftragsNummer" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Auftrag" Relationship="AppNetModel.FK_Offerte_Auftrag" FromRole="Offerte" ToRole="Auftrag" />
+          <Property Name="userid" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Auftragnehmer" Relationship="AppNetModel.FK_Offerte_Auftragnehmer" FromRole="Offerte" ToRole="Auftragnehmer" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -369,8 +357,6 @@
         <EntityContainer Name="AppNetEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Auftrag" EntityType="Self.Auftrag" />
           <EntitySet Name="Auftraggeber" EntityType="Self.Auftraggeber" />
-          <EntitySet Name="Auftragnehmer" EntityType="Self.Auftragnehmer" />
-          <EntitySet Name="Bewertung" EntityType="Self.Bewertung" />
           <EntitySet Name="Offerte" EntityType="Self.Offerte" />
           <EntitySet Name="Role" EntityType="Self.Role" />
           <EntitySet Name="UserClaim" EntityType="Self.UserClaim" />
@@ -395,6 +381,11 @@
             <End Role="Auftrag" EntitySet="Auftrag" />
             <End Role="Offerte" EntitySet="Offerte" />
           </AssociationSet>
+          <EntitySet Name="Auftragnehmer" EntityType="AppNetModel.Auftragnehmer" />
+          <AssociationSet Name="FK_Offerte_Auftragnehmer" Association="AppNetModel.FK_Offerte_Auftragnehmer">
+            <End Role="Auftragnehmer" EntitySet="Auftragnehmer" />
+            <End Role="Offerte" EntitySet="Offerte" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="FK_Offerte_Auftrag">
           <End Type="AppNetModel.Auftrag" Role="Auftrag" Multiplicity="1" />
@@ -405,6 +396,34 @@
             </Principal>
             <Dependent Role="Offerte">
               <PropertyRef Name="auftragsNummer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Auftragnehmer">
+          <Key>
+            <PropertyRef Name="userid" />
+          </Key>
+          <Property Name="userid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="passwort" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="e_mail" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="firmenname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="postleitzahl" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ort" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="strasse" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="logo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="telefonnummer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Offerte" Relationship="AppNetModel.FK_Offerte_Auftragnehmer" FromRole="Auftragnehmer" ToRole="Offerte" />
+        </EntityType>
+        <Association Name="FK_Offerte_Auftragnehmer">
+          <End Type="AppNetModel.Auftragnehmer" Role="Auftragnehmer" Multiplicity="1" />
+          <End Type="AppNetModel.Offerte" Role="Offerte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auftragnehmer">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="Offerte">
+              <PropertyRef Name="userid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -431,13 +450,15 @@
           <EntitySetMapping Name="Auftraggeber">
             <EntityTypeMapping TypeName="AppNetModel.Auftraggeber">
               <MappingFragment StoreEntitySet="Auftraggeber">
+                <ScalarProperty Name="strasse" ColumnName="strasse" />
+                <ScalarProperty Name="ort" ColumnName="ort" />
+                <ScalarProperty Name="postleitzahl" ColumnName="postleitzahl" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="vorname" ColumnName="vorname" />
                 <ScalarProperty Name="nachname" ColumnName="nachname" />
-                <ScalarProperty Name="adresse" ColumnName="adresse" />
                 <ScalarProperty Name="profilbild" ColumnName="profilbild" />
                 <ScalarProperty Name="telefonnummer" ColumnName="telefonnummer" />
                 <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
@@ -445,34 +466,10 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Auftragnehmer">
-            <EntityTypeMapping TypeName="AppNetModel.Auftragnehmer">
-              <MappingFragment StoreEntitySet="Auftragnehmer">
-                <ScalarProperty Name="userid" ColumnName="userid" />
-                <ScalarProperty Name="username" ColumnName="username" />
-                <ScalarProperty Name="passwort" ColumnName="passwort" />
-                <ScalarProperty Name="e_mail" ColumnName="e-mail" />
-                <ScalarProperty Name="firmenname" ColumnName="firmenname" />
-                <ScalarProperty Name="firmenadresse" ColumnName="firmenadresse" />
-                <ScalarProperty Name="logo" ColumnName="logo" />
-                <ScalarProperty Name="telefonnummer" ColumnName="telefonnummer" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Bewertung">
-            <EntityTypeMapping TypeName="AppNetModel.Bewertung">
-              <MappingFragment StoreEntitySet="Bewertung">
-                <ScalarProperty Name="wert" ColumnName="wert" />
-                <ScalarProperty Name="kommentar" ColumnName="kommentar" />
-                <ScalarProperty Name="auftragnehmerId" ColumnName="auftragnehmerId" />
-                <ScalarProperty Name="auftraggeberId" ColumnName="auftraggeberId" />
-                <ScalarProperty Name="auftragsId" ColumnName="auftragsId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Offerte">
             <EntityTypeMapping TypeName="AppNetModel.Offerte">
               <MappingFragment StoreEntitySet="Offerte">
+                <ScalarProperty Name="userid" ColumnName="userid" />
                 <ScalarProperty Name="auftragsNummer" ColumnName="auftragsNummer" />
                 <ScalarProperty Name="offertenNummer" ColumnName="offertenNummer" />
                 <ScalarProperty Name="kostenvoranschlag" ColumnName="kostenvoranschlag" />
@@ -516,6 +513,22 @@
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Auftragnehmer">
+            <EntityTypeMapping TypeName="AppNetModel.Auftragnehmer">
+              <MappingFragment StoreEntitySet="Auftragnehmer">
+                <ScalarProperty Name="telefonnummer" ColumnName="telefonnummer" />
+                <ScalarProperty Name="logo" ColumnName="logo" />
+                <ScalarProperty Name="strasse" ColumnName="strasse" />
+                <ScalarProperty Name="ort" ColumnName="ort" />
+                <ScalarProperty Name="postleitzahl" ColumnName="postleitzahl" />
+                <ScalarProperty Name="firmenname" ColumnName="firmenname" />
+                <ScalarProperty Name="e_mail" ColumnName="e-mail" />
+                <ScalarProperty Name="passwort" ColumnName="passwort" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

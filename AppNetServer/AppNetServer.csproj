@@ -82,13 +82,12 @@
     <Compile Include="Auftrag.cs">
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
+    <Compile Include="OfferteController.cs" />
+    <Compile Include="ProfilController.cs" />
     <Compile Include="Auftraggeber.cs">
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
     <Compile Include="Auftragnehmer.cs">
-      <DependentUpon>Models.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Bewertung.cs">
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
     <Compile Include="Models.Context.cs">
@@ -110,9 +109,6 @@
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
     <Compile Include="RegistrationController.cs" />
-    <Compile Include="OfferteController.cs" />
-    <Compile Include="DataController.cs" />
-    <Compile Include="AusschreibungController.cs" />
     <Compile Include="AuthorizationServerProvider.cs" />
     <Compile Include="AuftragController.cs" />
     <Compile Include="Program.cs" />
@@ -133,7 +129,6 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="ClassDiagram1.cd" />
     <EntityDeploy Include="Models.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Models.Designer.cs</LastGenOutput>

@@ -15,12 +15,6 @@ namespace AppNetServer
     
     public partial class Auftrag
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Auftrag()
-        {
-            this.Offerte = new HashSet<Offerte>();
-        }
-    
         public int auftragsNummer { get; set; }
         public Nullable<System.DateTime> erstelldatum { get; set; }
         public string titel { get; set; }

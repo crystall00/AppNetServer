@@ -9,18 +9,31 @@
 
 namespace AppNetServer
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
     public partial class Auftragnehmer
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Auftragnehmer()
+        {
+            this.Offerte = new HashSet<Offerte>();
+        }
+    
         public int userid { get; set; }
         public string username { get; set; }
         public string passwort { get; set; }
         public string e_mail { get; set; }
         public string firmenname { get; set; }
-        public string firmenadresse { get; set; }
+        public string postleitzahl { get; set; }
+        public string ort { get; set; }
+        public string strasse { get; set; }
         public string logo { get; set; }
         public string telefonnummer { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [JsonIgnore]
+        public virtual ICollection<Offerte> Offerte { get; set; }
     }
 }
