@@ -9,7 +9,6 @@
 
 namespace AppNetServer
 {
-    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -30,7 +29,6 @@ namespace AppNetServer
         public string Email { get; set; }
         public string vorname { get; set; }
         public string nachname { get; set; }
-        public string adresse { get; set; }
         public string profilbild { get; set; }
         public string telefonnummer { get; set; }
         public string SecurityStamp { get; set; }
@@ -40,7 +38,6 @@ namespace AppNetServer
         public string strasse { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        [JsonIgnore]
         public virtual ICollection<Auftrag> Auftrag { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserClaim> UserClaim { get; set; }

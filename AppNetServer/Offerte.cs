@@ -9,7 +9,6 @@
 
 namespace AppNetServer
 {
-    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -21,10 +20,8 @@ namespace AppNetServer
         public string status { get; set; }
         public int auftragsNummer { get; set; }
         public int userid { get; set; }
-
-        [JsonIgnore]
+    
         public virtual Auftrag Auftrag { get; set; }
-        [JsonIgnore]
         public virtual Auftragnehmer Auftragnehmer { get; set; }
     }
 }

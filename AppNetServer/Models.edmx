@@ -255,7 +255,6 @@
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="vorname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="nachname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="adresse" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="profilbild" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="telefonnummer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SecurityStamp" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
